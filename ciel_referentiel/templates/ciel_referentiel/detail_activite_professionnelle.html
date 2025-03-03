@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activite Professionnelle Detail</title>
+</head>
+<body>
+    <p>{{ activite.pole_id }}</p>
+    <h1>{{ activite.code }} - {{ activite.definition }}</h1>
+    <p>Tâches associées :</p>
+    <ul>
+        {% for tache in taches %}
+            <li>{{ tache.code }} <i>(Autonomie : {{ tache.autonomie }})</i> - {{ tache.tache }}</li>
+        {% endfor %}
+    </ul>
+    <p>Moyens et ressources :</p>
+    <ul>
+        {% for moyen_ressource in moyens_ressources %}
+            <li>{{ moyen_ressource.moyen_ressource }}</li>
+        {% endfor %}
+    </ul>
+    <p>Résultats attendus :</p>
+    <ul>
+        {% for resultat in resultats %}
+            <li>{{ resultat.resultat }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

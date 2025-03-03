@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Competence Detail</title>
+</head>
+<body>
+    <h1>{{ competence.code }} - {{ competence.definition }}</h1>
+    <p>Principales activités mettant en œuvre la compétence :</p>
+    <ul>
+        {% for activite in activites %}
+            <li><a href="../../activite/{{ activite.activite_professionelle.id }}/">{{ activite.activite_professionelle }}</a></li>
+        {% endfor %}
+    </ul>
+    <p>Connaissances associées et niveaux taxonomiques :</p>
+    <ul>
+        {% for connaissance in connaissances %}
+            <li>{{ connaissance.connaissance }} <i><a href="../../taxonomie/{{ connaissance.taxonomie.id }}/">Niveau : {{ connaissance.taxonomie.niveau }}</a></i></li>
+        {% endfor %}
+    </ul>
+    <p>Critères d’évaluation de la compétence :</p>
+    <ul>
+        {% for critere_evaluation in critere_evaluations %}
+            <li>{{ critere_evaluation.critere_evaluation }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taxonomie Detail</title>
+</head>
+<body>
+    <h1>{{ taxonomie.objectif }}</h1>
+    <p><b>Niveau :</b> {{ taxonomie.niveau }}</p>
+    <p><b>Caractérisation de ce niveau hiérarchique :</b> </br>{{ taxonomie.caracterisation }}</p>
+    <p><b>Capacité à :</b> </br>{{ taxonomie.capacite }}</p>
+    <p><b>Habiletés requises :</b> </br>{{ taxonomie.habilete }}</p>
+    <p><b>Verbes d'action :</b> </br>{{ taxonomie.verbe }}</p>
+    <p><b>Critère d'évaluation :</b> </br>{{ taxonomie.critere_evalusation }}</p>
+    <p><b>Exemple:</b> </br>{{ taxonomie.exemple }}</p>
+    <h2>Connaissances associées :</h2>
+    <ul>
+        {% for connaissance in connaissances %}
+            <li>{{ connaissance.competence.code}} - {{ connaissance.connaissance }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

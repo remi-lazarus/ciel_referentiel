@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ciel Referentiel Index</title>
+</head>
+<body>
+    <h1>Activity builder for : Bac Pro CIEL</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Compétences / Activités Professionnelles</th>
+                {% for competence in competences %}
+                    <th><a href="competence/{{ competence.id }}/">{{ competence }}</a></th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for activite in activites %}
+                <tr>
+                    <td><a href="activite/{{ activite.id }}/">{{ activite }}</a></td>
+                    {% for competence in competences %}
+                        <td>
+                            {% for cbap in competences_by_activites_professionnelles %}
+                                {% if cbap.activite_professionelle.id == activite.id and cbap.competence.id == competence.id %}
+                                    <p>Sequences pédagogiques : 0 <span></br><a href="#">Ajouter une séquence</a></span></p>
+                                    <p>activités : 0 <span></br><a href="#">Ajouter une activité</a></span></p>
+                                    
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
