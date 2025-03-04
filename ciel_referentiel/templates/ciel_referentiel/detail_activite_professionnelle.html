@@ -2,27 +2,30 @@
 <html>
 <head>
     <title>Activite Professionnelle Detail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
 </head>
 <body>
     <p>{{ activite.pole_id }}</p>
     <h1>{{ activite.code }} - {{ activite.definition }}</h1>
-    <p>Tâches associées :</p>
+    <h3>Tâches associées :</h3>
     <ul>
         {% for tache in taches %}
             <li>{{ tache.code }} <i>(Autonomie : {{ tache.autonomie }})</i> - {{ tache.tache }}</li>
         {% endfor %}
     </ul>
-    <p>Moyens et ressources :</p>
+    <h3>Moyens et ressources :</h3>
     <ul>
         {% for moyen_ressource in moyens_ressources %}
             <li>{{ moyen_ressource.moyen_ressource }}</li>
         {% endfor %}
     </ul>
-    <p>Résultats attendus :</p>
+    <h3>Résultats attendus :</h3>
     <ul>
         {% for resultat in resultats %}
             <li>{{ resultat.resultat }}</li>
         {% endfor %}
     </ul>
+    <hr>
+    <p><a href="javascript:history.back()">retour</a></p>
 </body>
 </html>

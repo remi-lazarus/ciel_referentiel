@@ -2,26 +2,29 @@
 <html>
 <head>
     <title>Competence Detail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
 </head>
 <body>
     <h1>{{ competence.code }} - {{ competence.definition }}</h1>
-    <p>Principales activités mettant en œuvre la compétence :</p>
+    <h3>Principales activités mettant en œuvre la compétence :</h3>
     <ul>
         {% for activite in activites %}
             <li><a href="../../activite/{{ activite.activite_professionelle.id }}/">{{ activite.activite_professionelle }}</a></li>
         {% endfor %}
     </ul>
-    <p>Connaissances associées et niveaux taxonomiques :</p>
+    <h3>Connaissances associées et niveaux taxonomiques :</h3>
     <ul>
         {% for connaissance in connaissances %}
             <li>{{ connaissance.connaissance }} <i><a href="../../taxonomie/{{ connaissance.taxonomie.id }}/">Niveau : {{ connaissance.taxonomie.niveau }}</a></i></li>
         {% endfor %}
     </ul>
-    <p>Critères d’évaluation de la compétence :</p>
+    <h3>Critères d’évaluation de la compétence :</h3>
     <ul>
         {% for critere_evaluation in critere_evaluations %}
             <li>{{ critere_evaluation.critere_evaluation }}</li>
         {% endfor %}
     </ul>
+    <hr>
+    <p><a href="javascript:history.back()">retour</a></p>
 </body>
 </html>

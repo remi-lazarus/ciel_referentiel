@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Ciel Referentiel Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
 </head>
 <body>
     <h1>Activity builder for : Bac Pro CIEL</h1>
@@ -10,7 +11,7 @@
             <tr>
                 <th>Compétences / Activités Professionnelles</th>
                 {% for competence in competences %}
-                    <th><a href="competence/{{ competence.id }}/">{{ competence }}</a></th>
+                    <th><b><a href="competence/{{ competence.id }}/">{{ competence }}</a></b></th>
                 {% endfor %}
             </tr>
         </thead>
