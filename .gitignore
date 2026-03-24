@@ -10,3 +10,6 @@ migrations/
 
 # venv
 .venv
+
+#Claude
+.claude/
