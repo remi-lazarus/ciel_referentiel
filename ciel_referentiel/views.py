@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Competence
 from .models import ActiviteProfessionnelle
 from .models import CompetencesByActivitesProfessionnelle
@@ -21,7 +21,7 @@ def index(request):
 
 
 def detail_competence(request, competence_id):
-    competence = Competence.objects.get(pk=competence_id)
+    competence = get_object_or_404(Competence, pk=competence_id)
     activites = CompetencesByActivitesProfessionnelle.objects.filter(competence=competence)
     connaissances = ConnaissanceAssociee.objects.filter(competence=competence)
     critere_evaluations = CompetenceCritereEvaluation.objects.filter(competence=competence)
@@ -33,7 +33,7 @@ def detail_competence(request, competence_id):
 
 
 def detail_activite_professionnelle(request, activite_id):
-    activite = ActiviteProfessionnelle.objects.get(pk=activite_id)
+    activite = get_object_or_404(ActiviteProfessionnelle, pk=activite_id)
     taches = ActiviteProfessionnelleTache.objects.filter(activite_professionelle=activite)
     moyens_ressources = ActiviteProfessionnelleMoyenRessource.objects.filter(activite_professionelle=activite)
     resultats = ActiviteProfessionnelleResultat.objects.filter(activite_professionelle=activite)
@@ -45,6 +45,6 @@ def detail_activite_professionnelle(request, activite_id):
 
 
 def detail_taxonomie(request, taxonomie_id):
-    taxonomie = Taxonomie.objects.get(pk=taxonomie_id)
+    taxonomie = get_object_or_404(Taxonomie, pk=taxonomie_id)
     connaissances = ConnaissanceAssociee.objects.filter(taxonomie=taxonomie)
     return render(request, 'ciel_referentiel/detail_taxonomie.html', {"taxonomie": taxonomie, "connaissances": connaissances})
