@@ -1,30 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Competence Detail</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
-</head>
-<body>
-    <h1>{{ competence.code }} - {{ competence.definition }}</h1>
-    <h3>Principales activités mettant en œuvre la compétence :</h3>
-    <ul>
-        {% for activite in activites %}
-            <li><a href="../../activite/{{ activite.activite_professionelle.id }}/">{{ activite.activite_professionelle }}</a></li>
-        {% endfor %}
-    </ul>
-    <h3>Connaissances associées et niveaux taxonomiques :</h3>
-    <ul>
-        {% for connaissance in connaissances %}
-            <li>{{ connaissance.connaissance }} <i><a href="../../taxonomie/{{ connaissance.taxonomie.id }}/">Niveau : {{ connaissance.taxonomie.niveau }}</a></i></li>
-        {% endfor %}
-    </ul>
-    <h3>Critères d’évaluation de la compétence :</h3>
-    <ul>
-        {% for critere_evaluation in critere_evaluations %}
-            <li>{{ critere_evaluation.critere_evaluation }}</li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <p><a href="javascript:history.back()">retour</a></p>
-</body>
-</html>
+{% extends "ciel_referentiel/base.html" %}
+
+{% block title %}{{ competence.code }} - CIEL Référentiel{% endblock %}
+
+{% block content %}
+    <div class="mb-8">
+        <a href="/" class="text-blue-600 hover:text-blue-800 transition-colors mb-4 inline-block">← Retour</a>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ competence.code }}</h1>
+        <p class="text-lg text-gray-600">{{ competence.definition }}</p>
+    </div>
+
+    <div class="space-y-8">
+        <!-- Principales activités -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Principales activités mettant en œuvre la compétence</h2>
+            {% if activites %}
+                <ul class="space-y-2">
+                    {% for activite in activites %}
+                        <li>
+                            <a href="../../activite/{{ activite.activite_professionelle.id }}/" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                {{ activite.activite_professionelle }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucune activité associée</p>
+            {% endif %}
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Connaissances associées -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Connaissances associées et niveaux taxonomiques</h2>
+            {% if connaissances %}
+                <ul class="space-y-3">
+                    {% for connaissance in connaissances %}
+                        <li class="flex justify-between items-start gap-4">
+                            <span>{{ connaissance.connaissance }}</span>
+                            <a href="../../taxonomie/{{ connaissance.taxonomie.id }}/" class="text-blue-600 hover:text-blue-800 transition-colors whitespace-nowrap text-sm">
+                                Niveau {{ connaissance.taxonomie.niveau }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucune connaissance associée</p>
+            {% endif %}
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Critères d'évaluation -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Critères d'évaluation de la compétence</h2>
+            {% if critere_evaluations %}
+                <ul class="space-y-2">
+                    {% for critere_evaluation in critere_evaluations %}
+                        <li class="text-gray-700">{{ critere_evaluation.critere_evaluation }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucun critère défini</p>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}

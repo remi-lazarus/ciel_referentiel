@@ -1,38 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ciel Referentiel Index</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
-</head>
-<body>
-    <h1>Activity builder for : Bac Pro CIEL</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Compétences / Activités Professionnelles</th>
-                {% for competence in competences %}
-                    <th><b><a href="competence/{{ competence.id }}/">{{ competence }}</a></b></th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for activite in activites %}
-                <tr>
-                    <td><a href="activite/{{ activite.id }}/">{{ activite }}</a></td>
+{% extends "ciel_referentiel/base.html" %}
+
+{% block title %}Index - CIEL Référentiel{% endblock %}
+
+{% block content %}
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Activity Builder</h2>
+        <p class="text-gray-600">Bac Pro CIEL</p>
+    </div>
+
+    <!-- Responsive Table Wrapper - Full Width -->
+    <div class="overflow-x-auto border border-gray-200 rounded-lg ml-[calc(-50vw+50%)] w-screen px-6">
+        <table class="w-full">
+            <thead>
+                <tr class="bg-gray-50 border-b border-gray-200">
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Compétences / Activités</th>
                     {% for competence in competences %}
-                        <td>
-                            {% for cbap in competences_by_activites_professionnelles %}
-                                {% if cbap.activite_professionelle.id == activite.id and cbap.competence.id == competence.id %}
-                                    <p>Sequences pédagogiques : 0 <span></br><a href="#">Ajouter une séquence</a></span></p>
-                                    <p>activités : 0 <span></br><a href="#">Ajouter une activité</a></span></p>
-                                    
-                                {% endif %}
-                            {% endfor %}
-                        </td>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                            <a href="competence/{{ competence.id }}/" class="text-blue-600 hover:text-blue-800 transition-colors">
+                                {{ competence }}
+                            </a>
+                        </th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+            </thead>
+            <tbody>
+                {% for activite in activites %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4">
+                            <a href="activite/{{ activite.id }}/" class="text-blue-600 hover:text-blue-800 transition-colors font-medium">
+                                {{ activite }}
+                            </a>
+                        </td>
+                        {% for competence in competences %}
+                            <td class="px-6 py-4">
+                                {% for cbap in competences_by_activites_professionnelles %}
+                                    {% if cbap.activite_professionelle.id == activite.id and cbap.competence.id == competence.id %}
+                                        <div class="space-y-3">
+                                            <div>
+                                                <p class="text-sm text-gray-600 mb-1">Séquences pédagogiques : 0</p>
+                                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">Ajouter une séquence</a>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm text-gray-600 mb-1">Activités : 0</p>
+                                                <a href="#" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">Ajouter une activité</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

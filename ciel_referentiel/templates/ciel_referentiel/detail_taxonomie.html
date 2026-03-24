@@ -1,23 +1,78 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Taxonomie Detail</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
-</head>
-<body>
-    <h1>{{ taxonomie.objectif }}</h1>
-    <p><b>Niveau :</b> {{ taxonomie.niveau }}</p>
-    <p><b>Caractérisation de ce niveau hiérarchique :</b> </br>{{ taxonomie.caracterisation }}</p>
-    <p><b>Capacité à :</b> </br>{{ taxonomie.capacite }}</p>
-    <p><b>Habiletés requises :</b> </br>{{ taxonomie.habilete }}</p>
-    <p><b>Verbes d'action :</b> </br>{{ taxonomie.verbe }}</p>
-    <p><b>Critère d'évaluation :</b> </br>{{ taxonomie.critere_evalusation }}</p>
-    <p><b>Exemple:</b> </br>{{ taxonomie.exemple }}</p>
-    <h2>Connaissances associées :</h2>
-    <ul>
-        {% for connaissance in connaissances %}
-            <li>{{ connaissance.competence.code}} - {{ connaissance.connaissance }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "ciel_referentiel/base.html" %}
+
+{% block title %}{{ taxonomie.objectif }} - CIEL Référentiel{% endblock %}
+
+{% block content %}
+    <div class="mb-8">
+        <a href="/" class="text-blue-600 hover:text-blue-800 transition-colors mb-4 inline-block">← Retour</a>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ taxonomie.objectif }}</h1>
+        <p class="text-lg text-gray-600">Niveau {{ taxonomie.niveau }}</p>
+    </div>
+
+    <div class="space-y-8">
+        <!-- Niveau hierarchique -->
+        <section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Caractérisation de ce niveau hiérarchique</h3>
+            <p class="text-gray-700 whitespace-pre-line">{{ taxonomie.caracterisation }}</p>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Capacité -->
+        <section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Capacité à</h3>
+            <p class="text-gray-700 whitespace-pre-line">{{ taxonomie.capacite }}</p>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Habiletés -->
+        <section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Habiletés requises</h3>
+            <p class="text-gray-700 whitespace-pre-line">{{ taxonomie.habilete }}</p>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Verbes d'action -->
+        <section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Verbes d'action</h3>
+            <p class="text-gray-700 whitespace-pre-line">{{ taxonomie.verbe }}</p>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Critère d'évaluation -->
+        <section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Critère d'évaluation</h3>
+            <p class="text-gray-700 whitespace-pre-line">{{ taxonomie.critere_evalusation }}</p>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Exemple -->
+        <section>
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Exemple</h3>
+            <p class="text-gray-700 whitespace-pre-line">{{ taxonomie.exemple }}</p>
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Connaissances associées -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Connaissances associées</h2>
+            {% if connaissances %}
+                <ul class="space-y-2">
+                    {% for connaissance in connaissances %}
+                        <li>
+                            <span class="font-medium text-gray-900">{{ connaissance.competence.code }}</span> -
+                            <span class="text-gray-700">{{ connaissance.connaissance }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucune connaissance associée</p>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}

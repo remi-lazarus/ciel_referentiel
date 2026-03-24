@@ -1,31 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Activite Professionnelle Detail</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mvoloskov/potion/potion.min.css">
-</head>
-<body>
-    <p>{{ activite.pole_id }}</p>
-    <h1>{{ activite.code }} - {{ activite.definition }}</h1>
-    <h3>Tâches associées :</h3>
-    <ul>
-        {% for tache in taches %}
-            <li>{{ tache.code }} <i>(Autonomie : {{ tache.autonomie }})</i> - {{ tache.tache }}</li>
-        {% endfor %}
-    </ul>
-    <h3>Moyens et ressources :</h3>
-    <ul>
-        {% for moyen_ressource in moyens_ressources %}
-            <li>{{ moyen_ressource.moyen_ressource }}</li>
-        {% endfor %}
-    </ul>
-    <h3>Résultats attendus :</h3>
-    <ul>
-        {% for resultat in resultats %}
-            <li>{{ resultat.resultat }}</li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <p><a href="javascript:history.back()">retour</a></p>
-</body>
-</html>
+{% extends "ciel_referentiel/base.html" %}
+
+{% block title %}{{ activite.code }} - CIEL Référentiel{% endblock %}
+
+{% block content %}
+    <div class="mb-8">
+        <a href="/" class="text-blue-600 hover:text-blue-800 transition-colors mb-4 inline-block">← Retour</a>
+        {% if activite.pole_id %}
+            <p class="text-sm text-gray-500 mb-2">Pôle : {{ activite.pole_id }}</p>
+        {% endif %}
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ activite.code }}</h1>
+        <p class="text-lg text-gray-600">{{ activite.definition }}</p>
+    </div>
+
+    <div class="space-y-8">
+        <!-- Tâches associées -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Tâches associées</h2>
+            {% if taches %}
+                <ul class="space-y-3">
+                    {% for tache in taches %}
+                        <li class="border-l-4 border-blue-200 pl-4 py-2">
+                            <div class="flex gap-2 mb-1">
+                                <span class="font-semibold text-gray-900">{{ tache.code }}</span>
+                                <span class="text-sm text-gray-500">(Autonomie : {{ tache.autonomie }})</span>
+                            </div>
+                            <p class="text-gray-700">{{ tache.tache }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucune tâche associée</p>
+            {% endif %}
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Moyens et ressources -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Moyens et ressources</h2>
+            {% if moyens_ressources %}
+                <ul class="space-y-2">
+                    {% for moyen_ressource in moyens_ressources %}
+                        <li class="text-gray-700">{{ moyen_ressource.moyen_ressource }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucun moyen ou ressource défini</p>
+            {% endif %}
+        </section>
+
+        <hr class="border-gray-200">
+
+        <!-- Résultats attendus -->
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Résultats attendus</h2>
+            {% if resultats %}
+                <ul class="space-y-2">
+                    {% for resultat in resultats %}
+                        <li class="text-gray-700">{{ resultat.resultat }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">Aucun résultat défini</p>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}
